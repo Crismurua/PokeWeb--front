@@ -1,13 +1,14 @@
 const { DataTypes } = require('sequelize');
+const path = require('path')
 
 module.exports = sequelize => {
     sequelize.define('type', {
         id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            allowNull: false,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            unique: true,
             primaryKey: true,
-            unique: true
+           
         },
         name: {
             type: DataTypes.STRING,
@@ -16,6 +17,6 @@ module.exports = sequelize => {
         }
     },
     {
-        timestamps: false,
+        timestamps: false
     })
 }

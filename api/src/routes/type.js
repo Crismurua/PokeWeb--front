@@ -1,17 +1,34 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { Type } = require('../models/Type.js');
+const { Type } = require('../db');
 const router = Router();
 
-router.get('/', (req, res) => {
-    axios.get('https://pokeapi.co/api/v2/type')
-    .then(r => r.json())
-    .then(response => {
-        response.data.results.forEach(e => {
-            let found = Type.findAll({where: {name: e.name}})
-            found ? res.json(Type.findAll()) : Type.create({name: e.name})
-        }).catch(err => console.log(err))
-    })
+router.get('/', async (req, res) => {
+    try{
+        let arrTypes = await Type.findAll();
+        if(arrTypes.length === 0){
+            await axios.get('https://pokeapi.co/api/v2/type')
+            .then(async response => {
+                let types = response.data.results;
+                arrTypes = types.map(t => {
+                    return {name: t.name}
+                })
+                await Type.bulkCreate(arrTypes);
+                
+
+            return res.status(200).json(await Type.findAll());
+        })
+        .catch(err => console.log(err))
+
+        }
+        else{
+            return res.status(200).json(await Type.findAll());
+        }
+
+    }
+    catch(err){
+        console.log(err)
+    }
 })
 
 
