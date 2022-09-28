@@ -47,8 +47,8 @@ async function pokeApi(){
 async function pokeDb(){
     try{
         const arrayDb = await Pokemon.findAll({include: {
-            attributes: ["name"],                                        
             model : Type,
+            attributes: ["name"],                                        
             through: {
                 attributes:[],
             }

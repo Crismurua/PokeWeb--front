@@ -5,6 +5,28 @@ const router = Router();
 
 
 
+router.post('/', async (req, res) => {
+    const {name, img, hp, attack, defense, speed, height, weight, types} = req.body;
+
+    if(!name || !hp || !attack || !defense || !types) return res.status(404).send('Data missing')
+    try{
+        
+        const newPoke = await Pokemon.create({name, img, hp, attack, defense, speed, height, weight})
+        //console.log(newPoke)
+        await newPoke.addTypes(types)
+        //console.log(newPoke)
+        return res.status(201).json({message: 'Pokemon created!'})
+        
+    }
+    catch(err){
+        return res.status(404).send('Something went wrong')
+
+    }
+    
+})
+
+
+
 router.get('/', async (req, res) => {
     const {name} = req.query;
    if(name) {
@@ -44,25 +66,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
-    const {name, img, hp, attack, defense, speed, height, weight, types} = req.body;
 
-    if(!name || !hp || !attack || !defense || !types) return res.status(404).send('Data missing')
-    try{
-        
-        const newPoke = await Pokemon.create({name, img, hp, attack, defense, speed, height, weight})
-        //console.log(newPoke)
-        await newPoke.addTypes(types)
-        console.log(newPoke)
-        return res.status(201).json({message: 'Pokemon created!'})
-        
-    }
-    catch(err){
-        return res.status(404).send('Something went wrong')
-
-    }
-    
-})
 
 
 
