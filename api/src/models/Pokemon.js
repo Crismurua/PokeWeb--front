@@ -15,6 +15,9 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true
     },
+    img: {
+      type: DataTypes.STRING,
+    },
     hp: {
       type: DataTypes.INTEGER,
     },
@@ -33,5 +36,8 @@ module.exports = (sequelize) => {
     weight:{ 
       type: DataTypes.INTEGER,
     }
+  },
+  {
+    timestamps: false
   });
 };

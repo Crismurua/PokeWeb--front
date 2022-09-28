@@ -4,7 +4,7 @@ const {Pokemon, Type} = require('../db')
 
 
 async function pokeApi(){
-    let arrayApi;
+    let arrayApi = [];
     await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40")
             .then(async response => {
                 let respApi = response.data.results;
@@ -46,7 +46,13 @@ async function pokeApi(){
 
 async function pokeDb(){
     try{
-        const arrayDb = await Pokemon.findAll({include: Type})
+        const arrayDb = await Pokemon.findAll({include: {
+            attributes: ["name"],                                        
+            model : Type,
+            through: {
+                attributes:[],
+            }
+        }})
         return arrayDb;
     }catch(err){
         console.log(err)
@@ -57,11 +63,59 @@ async function getAllPoke(){
     try{
         let api = await pokeApi();
         let db = await pokeDb();
-        return api.concat(db); 
+        if(db && api) return api.concat(db);
+        else return api; 
     }
     catch(err){console.log(err)}
 }
 
+
+async function getById(id){
+    
+    try{
+        if(id<=40){
+           // console.log('entre al if de id api')
+            const apiPoke = await pokeApi();
+            //console.log(id)
+            //console.log(apiPoke)
+
+             for(let i=0;i<apiPoke.length;i++){
+                 if(apiPoke[i].id == id) return apiPoke[i];
+             }
+            //  let pokeId = apiPoke.find(p => {
+            //      //console.log('entre al find')
+            //     p.id.toString() == id.toString()
+            //     //console.log(p.id)      
+            //  })
+            //  if(pokeId.length){
+            //      return pokeId
+            //  }
+            console.log('no se encontro el pokemon')            
+        }
+        else {
+            const dbPoke = await Pokemon.findByPk(id, {include: Type})
+            return dbPoke;
+        }
+    }catch(err){
+        console.log('Invalid ID!')
+    }
+}
+
+async function getByName(name){
+    try{
+        let allPoke = await getAllPoke();
+        for(let i=0;i<allPoke.length;i++){
+            if(allPoke[i].name == name) return allPoke[i];
+        }
+        console.log(pokeName)
+       
+    }catch(err){
+        throw new Error('No se ha encontrado un Pokemon con ese name')
+    }
+}
+
 module.exports = {
             getAllPoke,
+            getById,
+            getByName
 }
