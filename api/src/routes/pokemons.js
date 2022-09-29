@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { Pokemon, Type } = require('../db');
-const {getAllPoke, getById, getByName} = require('../middlewares/middlewares.js');
+const {getAllPoke, getById, getByName, pokeDb} = require('../middlewares/middlewares.js');
 const router = Router();
 
 

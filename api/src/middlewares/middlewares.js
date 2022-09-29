@@ -62,6 +62,7 @@ async function pokeDb(){
 async function getAllPoke(){
     try{
         let api = await pokeApi();
+        //console.log(api)
         let db = await pokeDb();
         if(db && api) return api.concat(db);
         else return api; 
@@ -117,5 +118,7 @@ async function getByName(name){
 module.exports = {
             getAllPoke,
             getById,
-            getByName
+            getByName,
+            pokeDb,
+            pokeApi
 }
