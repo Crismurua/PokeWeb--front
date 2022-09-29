@@ -2,7 +2,7 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from "../../redux/actions/index.js";
-import Types from "../Types/Types.jsx";
+
 
 const PokemonDetail = (props) => {
     let params = useParams(props) 
@@ -33,7 +33,11 @@ const PokemonDetail = (props) => {
             <p>Height: {detail.height} CM</p>
             <p>Weight: {detail.height} KG</p>
             <h4>Types</h4>
-            <Types />
+            <ul>
+                {detail.types?.map(t => {
+                    return <li>{t.name}</li>
+                })}
+            </ul>
 
         </div>
     );

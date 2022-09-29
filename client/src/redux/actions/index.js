@@ -35,11 +35,11 @@ export const getPokemonDetail = (id) => {
 export const createPokemon = (payload) => {
     return {
         type: CREATE_POKEMON,
-        payload: {...payload}
+        payload: payload
     }
 }
 
-export const getTypes = (paryload) => {
+export const getTypes = () => {
     return function(dispatch){
         return fetch('http://localhost:3001/type')
         .then(r => r.json())

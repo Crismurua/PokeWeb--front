@@ -1,5 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import * as actions from "../../redux/actions/index.js";
+
 
 const CreatePokemon = () => {
     const initialState = {
@@ -22,7 +24,7 @@ const CreatePokemon = () => {
 
     let handleOnSubmit = (e) => {
         e.preventDefault();
-        dispatch(CreatePokemon(input));
+        dispatch(actions.createPokemon(input));
         setInput(initialState);
     };
 
