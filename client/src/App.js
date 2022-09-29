@@ -6,6 +6,7 @@ import PokemonCards from "./components/PokemonCards/PokemonCards.jsx";
 import PokemonDetail from "./components/PokemonDetail/PokemonDetail.jsx";
 import CreatePokemon from "./components/CreatePokemon/CreatePokemon.jsx";
 import Types from "./components/Types/Types.jsx";
+import Landing from "./components/Landing/Landing.jsx";
 
 
 function App() {

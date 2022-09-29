@@ -9,6 +9,7 @@ export class PokemonCards extends Component {
         this.props.getPokemons()
     }
     render(){
+        return (
         <div className="Cards">
             <h3>Pokemons</h3>
             {
@@ -23,18 +24,19 @@ export class PokemonCards extends Component {
                 })
             }
         </div>
+        );
     }
 }
 
 export const mapStateToProps = (state) => {
     return {
-      characters: state.pokemons
+      pokemons: state.pokemons
     }
    }
   
   export const mapDispatchToProps = (dispatch) => {
     return {
-      getCharacters: () => dispatch(actions.getPokemons())
+      getPokemons: () => dispatch(actions.getPokemons())
     }
    }
   

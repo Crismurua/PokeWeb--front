@@ -90,7 +90,7 @@ const CreatePokemon = () => {
                         onChange={input}
                         />
                 <label>TYPES: </label>
-                <input type=""
+                <input type="checkbox"
                         name="types"
                         value={input.types}
                         onChange={input}
