@@ -1,4 +1,4 @@
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, CREATE_POKEMON} from "../actions/index.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, CREATE_POKEMON} from "../actions/actionTypes.js";
 
 const initialState = {
     pokemons: [],
