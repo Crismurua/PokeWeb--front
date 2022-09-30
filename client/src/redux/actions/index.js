@@ -1,5 +1,5 @@
 //ACTION TYPES
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, CREATE_POKEMON} from "../actions/actionTypes.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON} from "../actions/actionTypes.js";
 
 
 export const getPokemons = () => {
@@ -26,7 +26,7 @@ export const getPokemonDetail = (id) => {
             })
         })
     }
-}
+};
 
 export const createPokemon = (payload) => {
     return function(dispatch){
@@ -44,7 +44,7 @@ export const createPokemon = (payload) => {
         })
     }
     
-}
+};
 
 export const getTypes = () => {
     return function(dispatch){
@@ -58,4 +58,17 @@ export const getTypes = () => {
             })
         })
     }
-}
+};
+
+export const getByName = (name) => {
+    return function(dispatch){
+        return fetch(`http://localhost:3001/pokemons/?name=${name}`)
+        .then(r => r.json())
+        .then(response => {
+            dispatch({
+                type: GET_BY_NAME,
+                payload: response
+            })
+        })
+    }
+};
