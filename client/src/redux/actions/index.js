@@ -1,9 +1,5 @@
 //ACTION TYPES
-export const GET_POKEMONS = "GET_POKEMONS";
-export const GET_POKEMON_DETAIL = "GET_POKEMON_DETAIL";
-export const GET_TYPES = "GET_TYPES";
-
-export const CREATE_POKEMON = "CREATE_POKEMON";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, CREATE_POKEMON} from "../actions/actionTypes.js";
 
 
 export const getPokemons = () => {
@@ -33,10 +29,21 @@ export const getPokemonDetail = (id) => {
 }
 
 export const createPokemon = (payload) => {
-    return {
-        type: CREATE_POKEMON,
-        payload: payload
+    return function(dispatch){
+        return fetch('http://localhost:3001/pokemons', {
+            method: "POST",
+            mode: "cors",
+            body: JSON.stringify(payload),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => {
+            dispatch({
+                    type: CREATE_POKEMON,
+                    payload: response                
+            })
+        })
     }
+    
 }
 
 export const getTypes = () => {

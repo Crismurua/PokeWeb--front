@@ -1,6 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/index.js";
+import {useHistory, Link} from 'react-router-dom'
 
 
 const CreatePokemon = () => {
@@ -11,37 +12,74 @@ const CreatePokemon = () => {
         attack: 0,
         defense: 0,
         speed: 0,
-        types: [{id:0}],
+        types: [],
         height: 0,
         weight: 0,
     };
-    let dispatch = useDispatch();
-    let [input, setInput] = React.useState(initialState);
 
+    const initialTypes = [];
+    
+    const dispatch = useDispatch();
+    const [input, setInput] = React.useState(initialState);
+    const alltypes = useSelector(state => state.types)
+    const history = useHistory();
+    const [selectedTypes, setType] = React.useState(initialTypes);
+
+
+     React.useEffect(() => { 
+        dispatch(actions.getTypes())    
+     }, [dispatch])
+
+
+    
     React.useEffect(() => {
-        setInput(prev => ({ ...prev, [input.name]:input.value}))
-    }, [])
+        setInput(prev => ({ ...prev, [input.name]: input.value}))
+    }, [input.name, input.value])
 
-    let handleOnSubmit = (e) => {
+
+
+    const handleOnSubmit = (e) => {
         e.preventDefault();
         dispatch(actions.createPokemon(input));
         setInput(initialState);
+        history.push('/pokemons')
     };
+
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setInput(prev => ({ ...prev, [e.target.name] : e.target.value}))
+    }
+    
+    const handleTypes = (e) => {
+        if(!selectedTypes.includes(e.target.value)){
+                setType(prev => [...prev, e.target.value])
+
+        }
+        else{
+                setType(prev => prev.filter(type => type !== e.target.value))
+        }
+        setInput(prev => ({ ...prev, types : selectedTypes}))
+        console.warn(selectedTypes)
+    }
+
+
 
     return (
         <div>
+                <Link to='/pokemons'>BACK</Link>
             <form onSubmit={(e) => handleOnSubmit(e)}>
                 <label>Name: </label>
                 <input type="text"
                         name="name"
                         value={input.name}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>IMG: </label>
-                <input type="text"
+                <input type="file"
                         name="img"
                         value={input.img}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>HP: </label>
                 <input type="number"
@@ -49,7 +87,7 @@ const CreatePokemon = () => {
                         max="100"
                         name="hp"
                         value={input.hp}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>ATTACK: </label>
                 <input type="number"
@@ -57,7 +95,7 @@ const CreatePokemon = () => {
                         max="100"
                         name="attack"
                         value={input.attack}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>DEFENSE: </label>
                 <input type="number"
@@ -65,7 +103,7 @@ const CreatePokemon = () => {
                         max="100"
                         name="defense"
                         value={input.defense}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>SPEED: </label>
                 <input type="number"
@@ -73,7 +111,7 @@ const CreatePokemon = () => {
                         max="100"
                         name="speed"
                         value={input.speed}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>HEIGHT: </label>
                 <input type="number"
@@ -81,7 +119,7 @@ const CreatePokemon = () => {
                         max="100"
                         name="height"
                         value={input.height}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>WEIGHT: </label>
                 <input type="number"
@@ -89,16 +127,25 @@ const CreatePokemon = () => {
                         max="100"
                         name="weight"
                         value={input.weight}
-                        onChange={input}
+                        onChange={handleChange}
                         />
                 <label>TYPES: </label>
-                <input type="checkbox"
-                        name="types"
-                        value={input.types}
-                        onChange={input}
-                        />
+                {
+                        alltypes?.map(type => {
+                                return  (
+                                        <div >
+                                        <label>{type.name}</label>
+                                        <input type="checkbox"
+                                              name="types"
+                                              value={type.id}
+                                              onChange={handleTypes}
+                                              />  
+                                        </div>
+                                )
+                        })
+                }
 
-                <button type="submit">Create Pokemon</button>        
+                <button type="submit" disabled={!input.name || !input.hp || !input.types ? true : false}>Create Pokemon</button>        
             </form>
         </div>
     );

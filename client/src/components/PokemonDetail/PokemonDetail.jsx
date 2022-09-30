@@ -5,17 +5,17 @@ import * as actions from "../../redux/actions/index.js";
 
 
 const PokemonDetail = (props) => {
-    let params = useParams(props) 
-    
-    let dispatch = useDispatch()
+    const params = useParams(props) 
   
-    let detail = useSelector(state => state.pokemonDetail)
+    const dispatch = useDispatch()
   
+    const detail = useSelector(state => state.pokemonDetail)
+
   
     React.useEffect(() => {
       dispatch(actions.getPokemonDetail(params.id));
   
-    }, [])
+    }, [params.id, dispatch])
 
 
     return (

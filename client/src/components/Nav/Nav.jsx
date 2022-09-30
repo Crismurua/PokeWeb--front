@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export default function Nav() {
     return (
       <div className="nav">
-        <Link to="/pokemons">Home</Link>
-        <Link to="/create">Create Pokemon</Link>
+        <Link to="/pokemons">HOME</Link>
+        <Link to="/create">CREATE POKEMON</Link>
       </div>
     );
 }

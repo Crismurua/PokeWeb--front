@@ -14,8 +14,10 @@ export class PokemonCards extends Component {
             <h3>Pokemons</h3>
             {
                 this.props.pokemons?.map(p => {
+                    console.log(p)
                     return (
                         <PokemonCard key={p.id}
+                                id={p.id}
                                 name={p.name}
                                 img={p.img}
                                 types={p.types}
@@ -29,6 +31,7 @@ export class PokemonCards extends Component {
 }
 
 export const mapStateToProps = (state) => {
+    console.log(state)
     return {
       pokemons: state.pokemons
     }
