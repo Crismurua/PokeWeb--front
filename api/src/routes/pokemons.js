@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { Pokemon, Type } = require('../db');
-const {getAllPoke, getById, getByName, pokeDb} = require('../middlewares/middlewares.js');
+const {getAllPoke, getById, getByName, pokeDb, pokeApi} = require('../middlewares/middlewares.js');
 const router = Router();
 
 
@@ -44,10 +44,11 @@ router.get('/', async (req, res) => {
 }
 else {
     try{
+     
         const allPoke = await getAllPoke();
         res.status(200).json(allPoke);
     }catch(err){
-        console.log(err)
+        res.status(404).send({message: 'Could not show Pokemons'})
 
     }
 }

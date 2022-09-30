@@ -18,7 +18,7 @@ async function pokeApi(){
                         return {
                             id: p.data.id,
                             name: p.data.name,
-                            img: p.data.sprites.front_default,
+                            img: p.data.sprites.other["official-artwork"].front_default,
                             hp: p.data.stats[0].base_stat,
                             attack: p.data.stats[1].base_stat,
                             defense: p.data.stats[2].base_stat,
@@ -62,7 +62,6 @@ async function pokeDb(){
 async function getAllPoke(){
     try{
         let api = await pokeApi();
-        //console.log(api)
         let db = await pokeDb();
         if(db && api) return api.concat(db);
         else return api; 
