@@ -71,27 +71,33 @@ async function getAllPoke(){
 
 
 async function getById(id){
+    //console.log(typeof id)
     
     try{
-        if(id<=40){
-           // console.log('entre al if de id api')
-            const apiPoke = await pokeApi();
-            //console.log(id)
-            //console.log(apiPoke)
+        
+        
+        if(id.length <= 4){
+        const apiPoke = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+            return {
+                id: apiPoke.data.id,
+                name: apiPoke.data.name,
+                img: apiPoke.data.sprites.other["official-artwork"].front_default,
+                hp: apiPoke.data.stats[0].base_stat,
+                attack: apiPoke.data.stats[1].base_stat,
+                defense: apiPoke.data.stats[2].base_stat,
+                speed: apiPoke.data.stats[3].base_stat,
+                height: apiPoke.data.height,
+                weight: apiPoke.data.weight,
+                types: apiPoke.data.types.map(t => {
+                                return {
+                                    name: t.type.name
+                                }
+                            })
+            }
 
-             for(let i=0;i<apiPoke.length;i++){
-                 if(apiPoke[i].id == id) return apiPoke[i];
-             }
-            //  let pokeId = apiPoke.find(p => {
-            //      //console.log('entre al find')
-            //     p.id.toString() == id.toString()
-            //     //console.log(p.id)      
-            //  })
-            //  if(pokeId.length){
-            //      return pokeId
-            //  }
-            console.log('no se encontro el pokemon')            
-        }
+                      
+        
+    }
         else {
             const dbPoke = await Pokemon.findByPk(id, {include: Type})
             return dbPoke;
@@ -102,13 +108,34 @@ async function getById(id){
 }
 
 async function getByName(name){
+    //console.log(name) ok 
     try{
-        let allPoke = await getAllPoke();
-        for(let i=0;i<allPoke.length;i++){
-            if(allPoke[i].name == name) return allPoke[i];
+        const apiPoke = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        if(apiPoke){
+            return {
+                id: apiPoke.data.id,
+                name: apiPoke.data.name,
+                img: apiPoke.data.sprites.other["official-artwork"].front_default,
+                hp: apiPoke.data.stats[0].base_stat,
+                attack: apiPoke.data.stats[1].base_stat,
+                defense: apiPoke.data.stats[2].base_stat,
+                speed: apiPoke.data.stats[3].base_stat,
+                height: apiPoke.data.height,
+                weight: apiPoke.data.weight,
+                types: apiPoke.data.types.map(t => {
+                                return {
+                                    name: t.type.name
+                                }
+                            })
+            }
         }
-        console.log(pokeName)
+        //console.log(apiPoke[i])
+
        
+            const dbPoke = await Pokemon.findOne({where:{name}}, {include: Type})
+            return dbPoke;
+        
+    
     }catch(err){
         throw new Error('No se ha encontrado un Pokemon con ese name')
     }

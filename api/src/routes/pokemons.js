@@ -59,8 +59,10 @@ else {
 router.get('/:id', async (req, res) => {
     const {id} = req.params;
     try{
-        const pokeById = await getById(id);
-        res.status(200).json(pokeById)
+        if(id){
+            const pokeById = await getById(id);
+            res.status(200).json(pokeById)
+        }
     }catch(err){
         res.status(404).send('PokeID not found')
 
