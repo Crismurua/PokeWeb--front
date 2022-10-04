@@ -1,4 +1,4 @@
-import './App.css';
+//import './App.css';
 import React from "react";
 import { Route } from "react-router-dom"
 import Nav from "./components/Nav/Nav.jsx";
@@ -6,8 +6,9 @@ import PokemonCards from "./components/PokemonCards/PokemonCards.jsx";
 import PokemonDetail from "./components/PokemonDetail/PokemonDetail.jsx";
 import CreatePokemon from "./components/CreatePokemon/CreatePokemon.jsx";
 
-import Landing from "./components/Landing/Landing.jsx";
 
+import Landing from "./components/Landing/Landing.jsx";
+import ErrorPage from "./components/ErrorPage/ErrorPage.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route exact path='/pokemons' render={() => <PokemonCards />}/>
       <Route exact path='/pokemons/:id' render={() => <PokemonDetail />}/>
       <Route exact path='/create' render={() => <CreatePokemon />}/>
+      {/* <Route path='*' render={()=> <ErrorPage />}/> */}
       
     </div>
   );

@@ -1,9 +1,16 @@
 //ACTION TYPES
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON} from "../actions/actionTypes.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK} from "../actions/actionTypes.js";
 
+
+export const loading = () => {
+    return {
+        type: LOADING
+    }
+}
 
 export const getPokemons = () => {
     return function(dispatch){
+        dispatch(loading())
         return fetch('http://localhost:3001/pokemons')
         .then(r => r.json())
         .then(response => {
@@ -17,6 +24,7 @@ export const getPokemons = () => {
 
 export const getPokemonDetail = (id) => {
     return function(dispatch){
+        dispatch(loading())
         return fetch(`http://localhost:3001/pokemons/${id}`)
         .then(r => r.json())
         .then(response => {
@@ -61,7 +69,9 @@ export const getTypes = () => {
 };
 
 export const getByName = (name) => {
+    console.log(name)
     return function(dispatch){
+        dispatch(loading())
         return fetch(`http://localhost:3001/pokemons/?name=${name}`)
         .then(r => r.json())
         .then(response => {
@@ -72,3 +82,32 @@ export const getByName = (name) => {
         })
     }
 };
+
+export function sortName(order){
+    return {
+        type: SORT_NAME,
+        payload: order,
+    }
+};
+
+export function sortAttack(order){
+    return {
+        type: SORT_ATTACK,
+        payload: order,
+    }
+};
+
+export function filterType(type){
+    return {
+        type: FILTER_TYPE,
+        payload: type,
+    }
+};
+
+export function filterPokemon(origin){
+    return {
+        type: FILTER_POKEMON,
+        payload: origin,
+    }
+};
+

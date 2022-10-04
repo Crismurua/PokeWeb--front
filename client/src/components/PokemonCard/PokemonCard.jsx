@@ -1,19 +1,20 @@
 import React from "react";
-import {Link} from "react-router-dom";
+
 
 
 const PokemonCard = (props) => {
-    console.log(props)
+    //console.log(props)
     return (
-        <Link to={`/pokemons/${props.id}`}>
-             <div className="card" key={props.id}>
+        
+        <div className="card" key={props.id}>
+                <span>{props.id}</span>
                 <h3>{props.name}</h3>
                 <img src={props.img} alt={props.name}/>
                 <ul>
-                    {props.types?.map(t => {return <li>{t.name}</li>})}
+                    {props.types?.map(t => {return <li key={t.id}>{t.name}</li>})}
                 </ul>
             </div>   
-        </Link>
+       
         
     )
 }

@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import {useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import * as actions from "../../redux/actions/index.js";
 
 
-const SearchBar = () => {
+
+const SearchBar = (props) => {
 
     const [input, setInput] = useState('');
-    let dispatch = useDispatch();
+    
 
     const handleInput = (e) => {
         setInput(e.target.value)
+    }
+
+    const handleName = (e) => {
+        props.getByName(input)
     }
 
     return (
@@ -17,14 +22,30 @@ const SearchBar = () => {
             e.preventDefault();
             if(!input) alert('Name...?')
             else{
-                dispatch(actions.getByName(input))
+                handleName()
                 setInput('')
+                
             }
         }}>
-            <input value={input} onChange={e => (handleInput(e))} type="text" placeholder="Search Name..."/>
+            <input value={input} onChange={handleInput} type="text" placeholder="Search Name..."/>
             <input type="submit" value="Go!" />
         </form>
     );
 };
 
-export default SearchBar;
+function mapStateToProps (state) {
+    return {
+      pokemons: state.pokemons,
+      
+    }
+  }
+  
+  function mapDispatchToProps (dispatch){
+    return{
+      
+      getByName: input => dispatch(actions.getByName(input)),
+      
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)

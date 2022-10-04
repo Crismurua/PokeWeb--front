@@ -1,47 +1,58 @@
-import React, { Component } from "react";
+import React from "react";
 import * as actions from "../../redux/actions/index.js";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import PokemonCard from "../PokemonCard/PokemonCard.jsx"
+import {useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
+import OrderBar from "../OrderBar/OrderBar.jsx";
+import FilterBar from "../FilterBar/FilterBar.jsx";
+
+import pikachu from "../../media/pikachu_running.gif";
+
+export function PokemonCards(){
+    
+    const dispatch = useDispatch()
+    const pokemons = useSelector(state => state.pokemons)
+    const loading = useSelector(state => state.loading)
+    
+
+    React.useEffect(() => {
+        dispatch(actions.getPokemons())
+
+    }, [dispatch])
+
+     
 
 
-export class PokemonCards extends Component {
-    componentDidMount(){
-        this.props.getPokemons()
-    }
-    render(){
+
+    
         return (
-        <div className="Cards">
+        <div>
             <h3>Pokemons</h3>
-            {
-                this.props.pokemons?.map(p => {
-                    console.log(p)
+            <FilterBar />
+            <OrderBar />  
+            { 
+
+                loading ? <img src={pikachu} alt="Loading..."/> : pokemons?.map(p => {
+                    //console.log(p)
                     return (
+                        <Link to={`/pokemons/${p.id}`} key={p.id}>
                         <PokemonCard key={p.id}
                                 id={p.id}
                                 name={p.name}
                                 img={p.img}
                                 types={p.types}
                         />
+                        </Link>
                     )
                 })
             }
         </div>
         );
     }
-}
 
-export const mapStateToProps = (state) => {
-    console.log(state)
-    return {
-      pokemons: state.pokemons
-    }
-   }
+
+
   
-  export const mapDispatchToProps = (dispatch) => {
-    return {
-      getPokemons: () => dispatch(actions.getPokemons())
-    }
-   }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(PokemonCards);
+  export default PokemonCards;
   
