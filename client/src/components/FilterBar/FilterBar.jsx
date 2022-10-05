@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { filterType, filterPokemon, getTypes } from "../../redux/actions";
 import { ALL_POKEMON, API_POKEMON, DB_POKEMON } from "../../redux/actions/actionTypes.js";
+import "./FilterBar.css";
 
 export default function FilterBar() {
     const types = useSelector(state => state.types);
@@ -25,7 +26,7 @@ export default function FilterBar() {
     }
 
     return (
-        <div>
+        <div className="filter-container">
             <h4>FILTERS</h4>
             
             <div >

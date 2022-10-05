@@ -1,0 +1,37 @@
+.pokecard {
+    display: grid;
+    grid-template-areas: "id img img"
+                         "c  img img"
+                         "c   c    c"
+                        "c   name   c"
+                       "type type type";
+    box-shadow: 10px 11px 31px -11px rgba(0,0,0,0.43);
+    opacity: 0.8;
+    transition-property: translate;
+    transition-duration: 1s;
+    border: 3px solid rgba(73, 72, 72, 0.863);
+    border-radius: 2%;
+                         
+}
+
+.pokecard:hover {
+    translate: 5px -10px;
+    
+}
+
+.img {
+    max-height: 40vh;
+    max-width: auto;
+    grid-area: "img";
+}
+
+.name {
+
+    grid-area: "name";
+    margin-left: 30px;
+}
+
+.types {
+    grid-area: "type";
+}
+  

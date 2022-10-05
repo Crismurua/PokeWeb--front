@@ -1,5 +1,5 @@
 //ACTION TYPES
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK} from "../actions/actionTypes.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, NEXT, PREV} from "../actions/actionTypes.js";
 
 
 export const loading = () => {
@@ -108,6 +108,18 @@ export function filterPokemon(origin){
     return {
         type: FILTER_POKEMON,
         payload: origin,
+    }
+};
+
+export function next(){
+    return {
+        type: NEXT
+    }
+};
+
+export function prev(){
+    return {
+        type: PREV
     }
 };
 

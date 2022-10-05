@@ -1,4 +1,4 @@
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, ASCENDENT, DESCENDENT, API_POKEMON, DB_POKEMON, ALL_TYPES} from "../actions/actionTypes.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, ASCENDENT, DESCENDENT, API_POKEMON, DB_POKEMON, ALL_TYPES, DEFAULT, NEXT, PREV} from "../actions/actionTypes.js";
 
 
 const initialState = {
@@ -9,7 +9,9 @@ const initialState = {
     filterTypes: false,
     filterPokemons: false,
     sortName:[false, false],
-    sortAttack:[false, false]
+    sortAttack:[false, false],
+    currentPage: 1,
+    pokePerPage: 12
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -38,8 +40,8 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pokemons: action.payload,
-                filteredPokemons: action.payload,
-                loading: false
+                loading: false,
+                currentPage:1
             }
         case GET_TYPES:
             return {
@@ -51,18 +53,21 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pokemons: [action.payload],
-                loading: false
+                loading: false,
+                currentPage: 1
             }
         case GET_POKEMON_DETAIL:
             return {
                 ...state,
                 pokemonDetail: action.payload,
-                loading: false
+                loading: false,
+                currentPage: 1
             }
         case CREATE_POKEMON:
             return {
                 ...state,
-                pokemons: [...state.pokemons, {...action.payload}]
+                pokemons: [...state.pokemons, {...action.payload}],
+                currentPage: 1
             }
         case LOADING:
             return {
@@ -75,7 +80,8 @@ const rootReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     pokemons: filtered,
-                    filterTypes: action.payload
+                    filterTypes: action.payload,
+                    currentPage: 1
             }}
         case FILTER_POKEMON:{
             let filtered = pokeFilter(state.filterTypes, action.payload);
@@ -83,6 +89,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemons: filtered,
                 filterPokemons: action.payload,
+                currentPage: 1
 
             }}
         case SORT_NAME:
@@ -96,7 +103,8 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemons: sortedPoke,
                 sortName: [action.payload === ASCENDENT, action.payload === DESCENDENT],
-                sortAttack: [false, false]
+                sortAttack: [false, false],
+                currentPage: 1
             }}
         case SORT_ATTACK:
                 {let sortedPoke = [...state.pokemons]
@@ -109,8 +117,31 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     pokemons: sortedPoke,
                     sortAttack: [action.payload === ASCENDENT, action.payload === DESCENDENT],
-                    sortName: [false, false]
+                    sortName: [false, false],
+                    currentPage: 1
                 }}
+        case DEFAULT:
+            return {
+                ...state,
+                pokemons: state.pokemons,
+                sortName: [false, false],
+                sortAttack: [false, false],
+                loading: false,
+                currentPage: 1
+            }
+        case NEXT:
+            return {
+                ...state,
+                currentPage: state.currentPage + 1,
+                loading: false
+            }
+        case PREV:
+            return {
+                ...state,
+                currentPage: state.currentPage - 1,
+                loading: false
+            }
+        
         default:
             return state
 

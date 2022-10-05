@@ -1,0 +1,15 @@
+.main {
+    display:grid;
+    grid-template-rows: 2rem;
+    grid-template-columns: repeat(5, 2fr);
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    
+
+}
+
+.page {
+    font-size: 100%;
+    align-self: center;
+    justify-self: center;
+}

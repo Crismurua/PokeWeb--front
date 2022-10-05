@@ -14,6 +14,7 @@ export const SORT_NAME = "SORT_NAME";
 export const SORT_ATTACK = "SORT_ATTACK";
 export const ASCENDENT = "ASCENDENT";
 export const DESCENDENT = "DESCENDENT";
+export const DEFAULT = "DEFAULT";
 
 
 
@@ -21,3 +22,7 @@ export const ALL_TYPES = "ALL_TYPES";
 export const DB_POKEMON = "DB_POKEMON";
 export const API_POKEMON = "API_POKEMON";
 export const ALL_POKEMON = "ALL_POKEMON";
+
+
+export const NEXT = "NEXT";
+export const PREV = "PREV";
