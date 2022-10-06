@@ -21,9 +21,9 @@ export default function Pagination(){
 
     return (
         <div className="main">
-            <button onClick={handlePrev} disabled={currentPage === 1 || loading ? true : false}>Prev</button>
+            <button onClick={handlePrev} disabled={currentPage === 1 || loading || !pokemons.length ? true : false}>Prev</button>
             <h3 className="page">{currentPage}</h3>
-            <button onClick={handleNext} disabled={currentPage === totalPages || loading ? true : false}>Next</button>
+            <button onClick={handleNext} disabled={currentPage === totalPages || loading || !pokemons.length ? true : false}>Next</button>
         </div>
     )
 }

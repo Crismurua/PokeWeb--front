@@ -2,6 +2,8 @@ import React from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from "../../redux/actions/index.js";
+import "./PokemonDetail.css";
+
 
 
 const PokemonDetail = (props) => {
@@ -18,29 +20,37 @@ const PokemonDetail = (props) => {
   
     }, [params.id, dispatch])
 
+
+
     return (
 
-        loading ? <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="Loading..."/> : 
+        loading ? <img src="media/pikachu_running.gif" className="loading" alt="Loading..."/> : 
+        !detail ?  <img src="media/psyduck.gif" className="psyduck" alt="NotFound..."/> :
             
-            <div key={detail.id}>
-                <p>{detail.id}</p>
-                <h2>{detail.name}</h2>
-                <img src={detail.img} alt={detail.name}/>
-                <h4>Stats</h4>
+            <div className="main-detail" key={detail.id}>
+                {detail.id <= 1154 ? <span className="id">#{detail.id}</span> : <span className="id">#DB</span>}
+                <h2 className="name-detail">{detail.name}</h2>
+                <img className="img-detail" src={detail.img} alt={detail.name}/>
+                <div className="stats">
+                
                 <ul>
                     <li>HP: {detail.hp}</li>
                     <li>ATK: {detail.attack}</li>
                     <li>DEF: {detail.defense}</li>
                     <li>SPD: {detail.speed}</li>
                 </ul>
-                <p>Height: {detail.height} CM</p>
-                <p>Weight: {detail.height} KG</p>
-                <h4>Types</h4>
-                <ul>
+                <p>Height: {detail.height} Dm</p>
+                <p>Weight: {detail.height} Hg</p>
+                </div>
+                <div className="typesdetail">                
                     {detail.types?.map(t => {
-                        return <li key={t.id}>{t.name}</li>
+                        return <div className="typedetail">
+                                <img src={`/media/types/${t.name}.svg.png`} className="type" key={t.id} alt={t.name}/>
+                                <span>{t.name}</span>
+                                </div>
+                                
                     })}
-                </ul>
+                </div>
 
             </div>
     );

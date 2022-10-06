@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import {connect} from "react-redux";
 import * as actions from "../../redux/actions/index.js";
+import "./SearchBar.css";
+
 
 
 
 const SearchBar = (props) => {
 
     const [input, setInput] = useState('');
-    
+   
 
     const handleInput = (e) => {
         setInput(e.target.value)
@@ -18,7 +20,7 @@ const SearchBar = (props) => {
     }
 
     return (
-        <form onSubmit={(e)=> {
+        <form className="parent" onSubmit={(e)=> {
             e.preventDefault();
             if(!input) alert('Name...?')
             else{
@@ -27,8 +29,8 @@ const SearchBar = (props) => {
                 
             }
         }}>
-            <input value={input} onChange={handleInput} type="text" placeholder="Search Name..."/>
-            <input type="submit" value="Go!" />
+            <input className="bar" value={input} onChange={handleInput} type="text" placeholder="Search Name..."/>
+            <input className="search" type="submit" value="Go!" />
         </form>
     );
 };

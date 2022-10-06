@@ -1,0 +1,81 @@
+.form-poke {
+    background: rgb(92,87,246);
+    background: radial-gradient(circle, rgba(92,87,246,1) 49%, rgba(42,36,244,1) 85%);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    height: 100vh;
+    color: #fff;
+    
+    
+}
+
+.cont-form {
+    display: grid;
+    grid-template-columns: repeat(2, 10vw);
+    grid-auto-rows: 1.5rem;
+    padding: 20px;
+    align-items: center;
+    
+}
+
+
+
+
+.type-container {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.form-types {
+
+}
+
+.type-box {
+
+}
+
+.back {
+
+    padding: 10px;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background: rgb(255,126,126);
+    background: radial-gradient(circle, rgba(255,126,126,1) 11%, rgba(249,10,10,1) 96%);
+    text-decoration: none;
+}
+
+.link-back {
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.pikaform {
+    max-height: 50vh;
+    max-width: auto;
+    grid-column: 2;
+    grid-row: 1;
+    float: right;
+    margin: 30px;
+    text-shadow: 10px 11px 31px -11px rgba(0,0,0,0.43);
+    opacity: 0.8;
+
+}
+
+.poke-lab {
+    float: right;
+    margin-top: 100px;
+}
+
+.text {
+    float: right;
+    margin-right: 35vw;
+    font-size: 30px;
+}
+
+.create-button {
+    width: 18vw;
+    margin-left: 30px;
+    height: 30px;
+
+}

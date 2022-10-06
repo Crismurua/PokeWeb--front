@@ -14,7 +14,7 @@ export const SORT_NAME = "SORT_NAME";
 export const SORT_ATTACK = "SORT_ATTACK";
 export const ASCENDENT = "ASCENDENT";
 export const DESCENDENT = "DESCENDENT";
-export const DEFAULT = "DEFAULT";
+
 
 
 

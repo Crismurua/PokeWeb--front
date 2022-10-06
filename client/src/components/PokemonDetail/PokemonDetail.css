@@ -1,0 +1,64 @@
+.main-detail {
+    display: grid;
+    grid-template-rows: 20rem;
+    grid-template-columns: repeat(auto-fill, minmax(40vw, 1fr));
+    justify-content: space-around;
+    align-content: center;
+    color: rgb(107, 107, 107);
+    padding: 15px ;
+    text-decoration: none;
+
+}
+
+.id {
+    font-size: 50px;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.name-detail {
+    
+    grid-column: 1;
+    grid-row: 1;
+    align-self: baseline;
+    justify-self: center;
+    font-size: 45px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+.img-detail {
+    grid-column: 2/3;
+    justify-self: center;
+    
+}
+
+.stats {
+    
+    grid-column: 1/2;
+    grid-row: 1/2;
+    justify-self: center;
+    align-self: flex-end;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+
+}
+
+.typesdetail {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+
+}
+
+.typedetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

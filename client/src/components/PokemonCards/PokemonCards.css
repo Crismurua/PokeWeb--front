@@ -6,13 +6,67 @@
     justify-content: space-around;
     grid-gap: 5rem;
     padding: 10px ;
-
-
-    }
+    text-decoration: none;
+    
+    
+}
 
 .card {
-    grid-column: span 2;
+    grid-column: span 1;
     
 
 }
+
+.link {
+    
+    text-decoration: none;
+}
+
+.loading {
+    width: 45vw;
+    grid-column: 2;
+    justify-self: center;  
+}
+
+.psyduck {
+    width: 45vw;
+    
+    grid-column: 2;
+    justify-self: center;  
+    
+}
+
+.notfound-text {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    color: rgb(107, 107, 107);
+    
+    
+}
+
+.header {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.filter-order {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 10vh;
+    background: rgb(223,223,223);
+    background: linear-gradient(0deg, rgba(223,223,223,0.8743872549019608) 16%, rgba(252,172,172,1) 100%);
+    box-shadow: 10px 11px 31px -11px rgba(0,0,0,0.43);
+    opacity: 0.8;
+}
+
+
 

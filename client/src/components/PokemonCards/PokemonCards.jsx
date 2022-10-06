@@ -6,11 +6,10 @@ import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import OrderBar from "../OrderBar/OrderBar.jsx";
 import FilterBar from "../FilterBar/FilterBar.jsx";
-
+import { getPokemons } from "../../redux/actions";
 import "./PokemonCards.css";
 
-import pikachu from "../../media/pikachu_running.gif";
-import pokecards from "../../media/pokemon-cards.png";
+
 import Pagination from "../Pagination/Pagination.jsx";
 
 export function PokemonCards(){
@@ -33,6 +32,10 @@ export function PokemonCards(){
         let end = start + pokePerPage;
         if (end > pokemons) end = pokemons;
         if (start < 0) start = 0;
+
+        const handleReset = e => {
+            dispatch(getPokemons())
+        }
         
    
 
@@ -40,18 +43,29 @@ export function PokemonCards(){
     
         return (
         <div >
-            <FilterBar />
-            <OrderBar />  
-            <img src={pokecards} clasName="pokecards" alt="PokeCards"/>
-            <Pagination />
+            <div className="filter-order">
+                <FilterBar />
+                <button  onClick={handleReset} className="button-reset">RESET</button>
+                <OrderBar /> 
+            </div>
+            <div className="header">
+            <img src="media/pokemon-cards.png" className="pokecards" alt="PokeCards"/>
+            <Pagination />    
+            </div> 
 
             <div  className="cards">
             { 
-
-                loading ? <img src={pikachu} className="pikachu" alt="Loading..."/> : pokemons?.map(p => {
+                
+                loading ? <div className="loading"><img src="/media/pikachu_running.gif" alt="Loading..."/></div> : 
+                pokemons.length === 0 ? <div  className="psyduck">
+                    <h3 className="notfound-text">Ops! Something happend!</h3>
+                    <img src="/media/psyduck.gif" alt="NotFound..."/>
+                    
+                    </div> : 
+                pokemons.map(p => {
                     //console.log(p)
                     return (
-                        <Link to={`/pokemons/${p.id}`} key={p.id}>
+                        <Link to={`/pokemons/${p.id}`} className="link" key={p.id}>
                                 <PokemonCard className="card" key={p.id}
                                     id={p.id}
                                     name={p.name}
@@ -63,7 +77,10 @@ export function PokemonCards(){
                 }).slice(start, end)
             }
             </div>
+            <div className="footer">
             <Pagination />
+
+            </div>
         </div>
         );
     }

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/actions/index.js";
 import {useHistory, Link} from 'react-router-dom'
+import "./CreatePokemon.css";
 
 
 const CreatePokemon = () => {
@@ -47,28 +48,34 @@ const CreatePokemon = () => {
 
 
     const handleChange = (e) => {
-        e.preventDefault();
-        setInput(prev => ({ ...prev, [e.target.name] : e.target.value}))
-    }
-    
-    const handleTypes = (e) => {
-        if(!selectedTypes.includes(e.target.value)){
-                setType(prev => [...prev, e.target.value])
-
+            e.preventDefault();
+            setInput(prev => ({ ...prev, [e.target.name] : e.target.value}))
         }
-        else{
-                setType(prev => prev.filter(type => type !== e.target.value))
+        
+        const handleTypes = (e) => {
+                if(!selectedTypes.includes(e.target.value)){
+                        setType(prev => [...prev, e.target.value])
+                        
+                }
+                else{
+                        setType(prev => prev.filter(type => type !== e.target.value))
+                }
+                setInput(prev => ({ ...prev, types : selectedTypes}))
+                console.warn(selectedTypes)
         }
-        setInput(prev => ({ ...prev, types : selectedTypes}))
-        console.warn(selectedTypes)
-    }
+        
+        
+        
+        return (
+                <div className="form-poke">
+                <div className="back">
+                <Link to='/pokemons' className="link-back">BACK</Link>
 
-
-
-    return (
-        <div>
-                <Link to='/pokemons'>BACK</Link>
+                </div>
             <form onSubmit={(e) => handleOnSubmit(e)}>
+                <img src="/media/pokeball-form.png" className="pikaform" alt="poke-form" />
+                <img src="/media/pokelab.png" className="poke-lab" alt="poke-lab" />
+                <div className="cont-form">
                 <label>Name: </label>
                 <input type="text"
                         name="name"
@@ -130,26 +137,30 @@ const CreatePokemon = () => {
                         onChange={handleChange}
                         />
                 <label>TYPES: </label>
+                <br></br>
                 {
                         alltypes?.map(type => {
                                 return  (
-                                        <div >
-                                        <label>{type.name}</label>
-                                        <input type="checkbox"
+                                        <div className="type-container">
+                                        <label className="form-types">{type.name}</label>
+                                        <input className="type-box" 
+                                              type="checkbox"
                                               name="types"
                                               value={type.id}
-                                              onChange={handleTypes}
+                                              onClick={handleTypes}
                                               />  
                                         </div>
                                 )
                         })
                 }
+                </div>
 
-                <button type="submit" disabled={!input.name || !input.hp || !input.types ? true : false}>Create Pokemon</button>        
+                <button type="submit" className="create-button" disabled={!input.name || !input.hp || !input.types ? true : false}>Create Pokemon</button>        
             </form>
+                <span className="text">CREATE YOUR OWN POKEMON!</span>
         </div>
     );
-
+    
 };
 
 export default CreatePokemon;

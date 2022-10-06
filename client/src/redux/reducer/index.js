@@ -1,4 +1,4 @@
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, ASCENDENT, DESCENDENT, API_POKEMON, DB_POKEMON, ALL_TYPES, DEFAULT, NEXT, PREV} from "../actions/actionTypes.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, ASCENDENT, DESCENDENT, API_POKEMON, DB_POKEMON, ALL_TYPES, NEXT, PREV} from "../actions/actionTypes.js";
 
 
 const initialState = {
@@ -11,7 +11,8 @@ const initialState = {
     sortName:[false, false],
     sortAttack:[false, false],
     currentPage: 1,
-    pokePerPage: 12
+    pokePerPage: 12,
+    
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -41,7 +42,8 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemons: action.payload,
                 loading: false,
-                currentPage:1
+                currentPage:1,
+                
             }
         case GET_TYPES:
             return {
@@ -54,14 +56,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemons: [action.payload],
                 loading: false,
-                currentPage: 1
+                currentPage: 1,
+                
             }
         case GET_POKEMON_DETAIL:
             return {
                 ...state,
                 pokemonDetail: action.payload,
                 loading: false,
-                currentPage: 1
+                currentPage: 1,
+                
             }
         case CREATE_POKEMON:
             return {
@@ -120,15 +124,7 @@ const rootReducer = (state = initialState, action) => {
                     sortName: [false, false],
                     currentPage: 1
                 }}
-        case DEFAULT:
-            return {
-                ...state,
-                pokemons: state.pokemons,
-                sortName: [false, false],
-                sortAttack: [false, false],
-                loading: false,
-                currentPage: 1
-            }
+
         case NEXT:
             return {
                 ...state,

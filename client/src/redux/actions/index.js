@@ -1,4 +1,5 @@
 //ACTION TYPES
+
 import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, NEXT, PREV} from "../actions/actionTypes.js";
 
 
@@ -122,4 +123,5 @@ export function prev(){
         type: PREV
     }
 };
+
 
