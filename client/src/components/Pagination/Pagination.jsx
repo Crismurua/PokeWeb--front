@@ -1,6 +1,7 @@
 import React from "react";
 import { next, prev } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+
 import "./Pagination.css";
 
 export default function Pagination(){
@@ -10,13 +11,18 @@ export default function Pagination(){
     const loading = useSelector(state => state.loading)
     const dispatch = useDispatch();
 
+
     const totalPages = Math.ceil(pokemons.length / pokePerPage)
+
+
 
     const handleNext = e => {
         dispatch(next())
+        window.scrollTo(0, 0);
     }
     const handlePrev = e => {
         dispatch(prev())
+        window.scrollTo(0, 0);
     }
 
     return (

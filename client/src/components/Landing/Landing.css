@@ -1,0 +1,58 @@
+.landing {
+    background: rgb(92,87,246);
+    background: radial-gradient(circle, rgba(92,87,246,1) 49%, rgba(42,36,244,1) 85%);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    height: 100vh;
+    color: #fff;
+    
+    display: grid;
+    grid-template-columns: repeat(3 , 33vw);
+    grid-template-rows: auto;
+    
+    
+}
+
+.wall {
+
+    grid-column: 1;
+    grid-row: 3;
+    margin-left: 300px;
+    
+}
+
+.enter {
+    margin-left: 420px;
+    grid-row: 3;
+    grid-column: 2;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    padding: 10px;
+    background: rgb(255,126,126);
+    background: radial-gradient(circle, rgba(255,126,126,1) 11%, rgba(249,10,10,1) 96%);
+
+    border-radius: 3%;
+    border: 3px solid #fff ;
+    transition-property: scale;
+    transition-duration: 1s;
+}
+
+.enter:hover {
+    scale: 125%;
+    
+}
+
+.welcome {
+    font-size: 20px;
+    font-weight: 70;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #fff;
+    text-decoration: none;
+    
+    
+}
+
+.land-logo {
+    position: absolute;
+    justify-self: center;
+}

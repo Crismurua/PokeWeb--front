@@ -6,6 +6,9 @@ import "./CreatePokemon.css";
 
 
 const CreatePokemon = () => {
+
+    const initialTypes = [];
+
     const initialState = {
         name: "",
         img: "",
@@ -13,12 +16,11 @@ const CreatePokemon = () => {
         attack: 0,
         defense: 0,
         speed: 0,
-        types: [],
+        types: initialTypes,
         height: 0,
         weight: 0,
     };
 
-    const initialTypes = [];
     
     const dispatch = useDispatch();
     const [input, setInput] = React.useState(initialState);
@@ -83,7 +85,7 @@ const CreatePokemon = () => {
                         onChange={handleChange}
                         />
                 <label>IMG: </label>
-                <input type="file"
+                <input id="img" type="file"
                         name="img"
                         value={input.img}
                         onChange={handleChange}
@@ -147,7 +149,7 @@ const CreatePokemon = () => {
                                               type="checkbox"
                                               name="types"
                                               value={type.id}
-                                              onClick={handleTypes}
+                                              onChange={handleTypes}
                                               />  
                                         </div>
                                 )
@@ -155,7 +157,7 @@ const CreatePokemon = () => {
                 }
                 </div>
 
-                <button type="submit" className="create-button" disabled={!input.name || !input.hp || !input.types ? true : false}>Create Pokemon</button>        
+                <button type="submit" className="create-button" disabled={!input.name || !input.hp || !input.types.length ? true : false}>Create Pokemon</button>        
             </form>
                 <span className="text">CREATE YOUR OWN POKEMON!</span>
         </div>
