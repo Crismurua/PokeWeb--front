@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {connect} from "react-redux";
 import * as actions from "../../redux/actions/index.js";
 import "./SearchBar.css";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -9,6 +10,7 @@ import "./SearchBar.css";
 const SearchBar = (props) => {
 
     const [input, setInput] = useState('');
+    const history = useHistory();
    
 
     const handleInput = (e) => {
@@ -24,8 +26,9 @@ const SearchBar = (props) => {
             e.preventDefault();
             if(!input) alert('Name...?')
             else{
-                handleName()
-                setInput('')
+                history.push("/pokemons");
+                handleName();
+                setInput('');
                 
             }
         }}>

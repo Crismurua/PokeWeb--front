@@ -23,13 +23,13 @@
 }
 
 .loading {
-    width: 45vw;
+    width: 33vw;
     grid-column: 2;
     justify-self: center;  
 }
 
 .psyduck {
-    width: 45vw;
+    width: 33vw;
     
     grid-column: 2;
     justify-self: center;  
@@ -40,6 +40,7 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 30px;
     color: rgb(107, 107, 107);
+    margin-left: 70px;
     
     
 }

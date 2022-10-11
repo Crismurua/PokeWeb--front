@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { filterType, filterPokemon, getTypes } from "../../redux/actions";
-import { ALL_POKEMON, API_POKEMON, DB_POKEMON } from "../../redux/actions/actionTypes.js";
+import { ALL_POKEMON, API_POKEMON, DB_POKEMON, ALL_TYPES } from "../../redux/actions/actionTypes.js";
 import "./FilterBar.css";
 
 export default function FilterBar() {
@@ -16,13 +16,14 @@ export default function FilterBar() {
      }, [dispatch])
 
     const handleTypes = e => {
-        e.preventDefault();
+        
         dispatch(filterType(e.target.value));
     }
 
     const handlePokemon = e => {
-        e.preventDefault();
+        
         dispatch(filterPokemon(e.target.value))
+
     }
 
     return (
@@ -30,8 +31,9 @@ export default function FilterBar() {
             <h4>FILTERS</h4>
             
             <div >
-                    <select value={filterTypes} onChange={handleTypes} >
-                        <option value="allTypes">ALL TYPES</option>
+                    <select value={filterTypes} onChange={e => handleTypes(e)} >
+                        <option value={ALL_TYPES}>TYPES</option>
+                        
                         {types?.map(t => {
                             return <option key={t.id} value={t.name}>{t.name}</option>
                         })}
@@ -39,7 +41,7 @@ export default function FilterBar() {
             </div>
 
             <div >
-                    <select value={filterPokemons} onChange={handlePokemon}>
+                    <select value={filterPokemons} onChange={e => handlePokemon(e)}>
                         <option value={ALL_POKEMON} >ALL</option>
                         <option value={API_POKEMON} >API</option>
                         <option value={DB_POKEMON} >DB</option>

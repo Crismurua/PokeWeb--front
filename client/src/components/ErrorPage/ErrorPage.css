@@ -1,0 +1,35 @@
+.main-page {
+    display: flex;
+    flex-direction: row;
+    background: radial-gradient(circle, rgb(255, 70, 70) 11%, rgba(249,10,10,1) 96%);
+    height: 100vh;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none;
+   
+}
+
+.nf-img {
+    max-height: 90vh;
+    max-width: 90vh;
+
+    
+    
+
+}
+
+.redir-link {
+    width: 30vw;
+    height: 10vh;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 10px 11px 31px -11px rgba(0,0,0,0.43); 
+ 
+
+}
+.nf-tittle {
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-self: flex-start;
+    
+}

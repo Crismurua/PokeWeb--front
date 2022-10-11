@@ -24,13 +24,10 @@ const rootReducer = (state = initialState, action) => {
                 const allTypes = p.types.map(t => t.name);
                 return allTypes.includes(byType);
             })
+        }else {
+            return currState
         }
-        if(byType === ALL_TYPES){
-            currState = currState.map(p => {
-                const allTypes = p.types.map(t => t.name);
-                return allTypes.includes(p.types)
-            })
-        }
+ 
         if(byPokemon === API_POKEMON){
             currState = currState.filter(p => p.id <= 1154)
         }

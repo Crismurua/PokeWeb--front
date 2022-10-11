@@ -16,7 +16,7 @@ const CreatePokemon = () => {
         attack: 0,
         defense: 0,
         speed: 0,
-        types: initialTypes,
+        types: [],
         height: 0,
         weight: 0,
     };
@@ -27,7 +27,7 @@ const CreatePokemon = () => {
     const alltypes = useSelector(state => state.types)
     const history = useHistory();
     const [selectedTypes, setType] = React.useState(initialTypes);
-
+    const [error, setError] = React.useState({})
 
      React.useEffect(() => { 
         dispatch(actions.getTypes())    
@@ -45,18 +45,21 @@ const CreatePokemon = () => {
         e.preventDefault();
         dispatch(actions.createPokemon(input));
         setInput(initialState);
+        alert('Pokemon succesfully created!')
         history.push('/pokemons')
     };
 
 
     const handleChange = (e) => {
             e.preventDefault();
-            setInput(prev => ({ ...prev, [e.target.name] : e.target.value}))
+            setError(validate({...input, [e.target.name] : e.target.value}))
+            setInput({...input, [e.target.name] : e.target.value})
         }
         
         const handleTypes = (e) => {
+                if(!selectedTypes.length) setType(e.target.value)
                 if(!selectedTypes.includes(e.target.value)){
-                        setType(prev => [...prev, e.target.value])
+                        setType([...selectedTypes, e.target.value])
                         
                 }
                 else{
@@ -156,6 +159,8 @@ const CreatePokemon = () => {
                         })
                 }
                 </div>
+                { error.name && (<span className="danger">{error.name}</span>)}
+                { error.types && (<span className="danger">{error.types}</span>)}
 
                 <button type="submit" className="create-button" disabled={!input.name || !input.hp || !input.types.length ? true : false}>Create Pokemon</button>        
             </form>
@@ -164,5 +169,12 @@ const CreatePokemon = () => {
     );
     
 };
+
+const validate = input => {
+        let error = {};
+        if(!/^[A-Za-z\s]*$/.test(input.name))  error.name = "Name invalid!";
+        if(!input.types.length || input.types.length>2) error.types = "Your Pokémon should have one type at least or two at most"
+        return error
+}
 
 export default CreatePokemon;

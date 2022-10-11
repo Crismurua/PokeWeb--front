@@ -21,19 +21,9 @@
     width: 330px;
 }
 
-
-
 .type-container {
     display: flex;
     flex-direction: row;
-
-}
-
-.form-types {
-
-}
-
-.type-box {
 
 }
 
@@ -81,4 +71,12 @@
     margin-left: 30px;
     height: 30px;
 
+}
+
+.danger {
+    color: red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: block;
+    margin-left: 20px;
+    margin-bottom: 10px;
 }
