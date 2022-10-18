@@ -110,34 +110,38 @@ async function getById(id){
 async function getByName(name){
     //console.log(name) ok 
     try{
-        const apiPoke = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-        if(apiPoke){
-            return {
-                id: apiPoke.data.id,
-                name: apiPoke.data.name,
-                img: apiPoke.data.sprites.other["official-artwork"].front_default,
-                hp: apiPoke.data.stats[0].base_stat,
-                attack: apiPoke.data.stats[1].base_stat,
-                defense: apiPoke.data.stats[2].base_stat,
-                speed: apiPoke.data.stats[3].base_stat,
-                height: apiPoke.data.height,
-                weight: apiPoke.data.weight,
-                types: apiPoke.data.types.map(t => {
-                                return {
-                                    name: t.type.name
-                                }
-                            })
-            }
-        }
-        //console.log(apiPoke[i])
-
-       
-            const dbPoke = await Pokemon.findOne({where:{name}}, {include: Type})
-            return dbPoke;
+                
+        const dbPoke = await Pokemon.findOne({where:{name: name}, include: Type})
         
-    
+        if(dbPoke) return dbPoke;
+
+        else {
+            const apiPoke = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+            if(apiPoke){
+                    return {
+                        id: apiPoke.data.id,
+                        name: apiPoke.data.name,
+                        img: apiPoke.data.sprites.other["official-artwork"].front_default,
+                        hp: apiPoke.data.stats[0].base_stat,
+                        attack: apiPoke.data.stats[1].base_stat,
+                        defense: apiPoke.data.stats[2].base_stat,
+                        speed: apiPoke.data.stats[3].base_stat,
+                        height: apiPoke.data.height,
+                        weight: apiPoke.data.weight,
+                        types: apiPoke.data.types.map(t => {
+                                        return {
+                                            name: t.type.name
+                                        }
+                                    })
+                    }
+        }
+        }
+
+        
+        //console.log(apiPoke[i])
+   
     }catch(err){
-        throw new Error('No se ha encontrado un Pokemon con ese name')
+        throw new Error('Couldn t find that Pokemon')
     }
 }
 

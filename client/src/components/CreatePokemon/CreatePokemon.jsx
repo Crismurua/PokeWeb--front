@@ -7,7 +7,7 @@ import "./CreatePokemon.css";
 
 const CreatePokemon = () => {
 
-    const initialTypes = [];
+  
 
     const initialState = {
         name: "",
@@ -26,7 +26,7 @@ const CreatePokemon = () => {
     const [input, setInput] = React.useState(initialState);
     const alltypes = useSelector(state => state.types)
     const history = useHistory();
-    const [selectedTypes, setType] = React.useState(initialTypes);
+    
     const [error, setError] = React.useState({})
 
      React.useEffect(() => { 
@@ -57,16 +57,17 @@ const CreatePokemon = () => {
         }
         
         const handleTypes = (e) => {
-                if(!selectedTypes.length) setType(e.target.value)
-                if(!selectedTypes.includes(e.target.value)){
-                        setType([...selectedTypes, e.target.value])
+                
+                if(!input.types.includes(e.target.value)){
+                        setInput({...input, types: [...input.types, e.target.value]})
                         
                 }
                 else{
-                        setType(prev => prev.filter(type => type !== e.target.value))
+                        input.types = input.types.filter(type => type !== e.target.value)
+                        setInput({...input, types: input.types})
                 }
-                setInput(prev => ({ ...prev, types : selectedTypes}))
-                console.warn(selectedTypes)
+               
+                console.warn(e.target.value)
         }
         
         
@@ -77,7 +78,7 @@ const CreatePokemon = () => {
                 <Link to='/pokemons' className="link-back">BACK</Link>
 
                 </div>
-            <form onSubmit={(e) => handleOnSubmit(e)}>
+            <form enctype="multipart/form-data" onSubmit={(e) => handleOnSubmit(e)}>
                 <img src="/media/pokeball-form.png" className="pikaform" alt="poke-form" />
                 <img src="/media/pokelab.png" className="poke-lab" alt="poke-lab" />
                 <div className="cont-form">

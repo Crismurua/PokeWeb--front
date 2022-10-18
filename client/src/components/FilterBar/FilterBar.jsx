@@ -8,6 +8,7 @@ export default function FilterBar() {
     const types = useSelector(state => state.types);
     const filterTypes = useSelector(state => state.filterTypes);
     const filterPokemons = useSelector(state => state.filterPokemons);
+    
     const dispatch = useDispatch();
 
     
@@ -16,12 +17,12 @@ export default function FilterBar() {
      }, [dispatch])
 
     const handleTypes = e => {
-        
+        e.preventDefault();
         dispatch(filterType(e.target.value));
     }
 
     const handlePokemon = e => {
-        
+        e.preventDefault();
         dispatch(filterPokemon(e.target.value))
 
     }

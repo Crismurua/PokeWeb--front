@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { sortName, sortAttack } from "../../redux/actions";
-import { ASCENDENT, DESCENDENT } from "../../redux/actions/actionTypes.js";
+import { ASCENDENT, DESCENDENT, DEFAULT } from "../../redux/actions/actionTypes.js";
 import "./OrderBar.css";
 
 export default function OrderBar() {
@@ -26,16 +26,16 @@ export default function OrderBar() {
                     
                 
                     <h4>SORTERS</h4>
-                    <select value={sortedName} onChange={handleName}>
-                        <option >NAME</option>
+                    <select multiple={true} value={sortedName} onChange={handleName}>
+                        <option value={DEFAULT}>NAME</option>
                         <option value={ASCENDENT} >A-Z</option>
                         <option value={DESCENDENT} >Z-A</option>
                     </select>
                 
 
                 
-                <select value={sortedAttack} onChange={handleAttack}>
-                        <option >ATTACK</option>
+                <select multiple={true} value={sortedAttack} onChange={handleAttack}>
+                        <option value={DEFAULT}>ATTACK</option>
                         <option value={ASCENDENT} >min - max</option>
                         <option value={DESCENDENT} >max - min</option>
                     </select>

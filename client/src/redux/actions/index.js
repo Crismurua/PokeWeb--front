@@ -1,6 +1,6 @@
 //ACTION TYPES
 
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, NEXT, PREV} from "../actions/actionTypes.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, NEXT, PREV, RESET} from "../actions/actionTypes.js";
 
 
 export const loading = () => {
@@ -10,9 +10,9 @@ export const loading = () => {
 }
 
 export const getPokemons = () => {
-    return function(dispatch){
+    return async function(dispatch){
         dispatch(loading())
-        return fetch('http://localhost:3001/pokemons')
+        return await fetch('http://localhost:3001/pokemons')
         .then(r => r.json())
         .then(response => {
             dispatch({
@@ -24,9 +24,9 @@ export const getPokemons = () => {
 };
 
 export const getPokemonDetail = (id) => {
-    return function(dispatch){
+    return async function(dispatch){
         dispatch(loading())
-        return fetch(`http://localhost:3001/pokemons/${id}`)
+        return await fetch(`http://localhost:3001/pokemons/${id}`)
         .then(r => r.json())
         .then(response => {
             dispatch({
@@ -38,8 +38,8 @@ export const getPokemonDetail = (id) => {
 };
 
 export const createPokemon = (payload) => {
-    return function(dispatch){
-        return fetch('http://localhost:3001/pokemons', {
+    return async function(dispatch){
+        return await fetch('http://localhost:3001/pokemons', {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(payload),
@@ -56,8 +56,8 @@ export const createPokemon = (payload) => {
 };
 
 export const getTypes = () => {
-    return function(dispatch){
-        return fetch('http://localhost:3001/type')
+    return async function(dispatch){
+        return await fetch('http://localhost:3001/type')
         .then(r => r.json())
         .then(response => {
             dispatch({
@@ -70,10 +70,10 @@ export const getTypes = () => {
 };
 
 export const getByName = (name) => {
-    console.log(name)
-    return function(dispatch){
+    //console.log(name)
+    return async function(dispatch){
         dispatch(loading())
-        return fetch(`http://localhost:3001/pokemons/?name=${name}`)
+        return await fetch(`http://localhost:3001/pokemons/?name=${name}`)
         .then(r => r.json())
         .then(response => {
             dispatch({
@@ -85,16 +85,22 @@ export const getByName = (name) => {
 };
 
 export function sortName(order){
-    return {
-        type: SORT_NAME,
-        payload: order,
+    return async function(d, s){
+        const pokemons = await s().pokemons
+        return d({
+            type: SORT_NAME,
+            payload: [order, pokemons]
+        })
     }
 };
 
 export function sortAttack(order){
-    return {
-        type: SORT_ATTACK,
-        payload: order,
+    return async function(d, s){
+        const pokemons = await s().pokemons
+        return d({
+            type: SORT_ATTACK,
+            payload: [order, pokemons]
+        })
     }
 };
 
@@ -121,6 +127,12 @@ export function next(){
 export function prev(){
     return {
         type: PREV
+    }
+};
+
+export function reset(){
+    return {
+        type: RESET
     }
 };
 

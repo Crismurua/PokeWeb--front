@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import OrderBar from "../OrderBar/OrderBar.jsx";
 import FilterBar from "../FilterBar/FilterBar.jsx";
-import { getPokemons } from "../../redux/actions";
+import { getPokemons, reset } from "../../redux/actions";
 import "./PokemonCards.css";
 
 
@@ -17,24 +17,32 @@ export function PokemonCards(){
     const dispatch = useDispatch()
     const pokemons = useSelector(state => state.pokemons)
     const loading = useSelector(state => state.loading)
+    const searched = useSelector(state => state.searchedPoke)
+    const filtered = useSelector(state => state.filteredPoke)
+    const ordered = useSelector(state => state.orderPokemons)
+    const sortedName = useSelector(state => state.sortedName)
+    const sortedAttack = useSelector(state => state.sortedAttack)
+    const filterTypes = useSelector(state => state.filterTypes)
+    const filterPokemons = useSelector(state => state.filterPokemons)
     
     const currentPage = parseInt(useSelector(state => state.currentPage))
    
     const pokePerPage = parseInt(useSelector(state => state.pokePerPage))
 
     React.useEffect(() => {
-        dispatch(actions.getPokemons())
+        dispatch(getPokemons())
 
     }, [dispatch])
 
-
+    // PAGINADO -----------------------------------
         let start = (currentPage - 1) * pokePerPage;
         let end = start + pokePerPage;
         if (end > pokemons) end = pokemons;
         if (start < 0) start = 0;
 
         const handleReset = e => {
-            dispatch(getPokemons())
+            e.preventDefault();
+            dispatch(reset());
         }
         
    
@@ -57,12 +65,60 @@ export function PokemonCards(){
             { 
                 
                 loading ? <div className="loading"><img src="/media/pikachu_running.gif" alt="Loading..."/></div> : 
-                pokemons.length === 0 ? <div  className="psyduck">
+                (pokemons.length === 0) && (filtered.length === 0)  && (ordered.length === 0) && (searched.length === 0) ? <div  className="psyduck">
                     <h3 className="notfound-text">Ops! Something happend!</h3>
                     <img src="/media/psyduck.gif" alt="NotFound..."/>
                     
                     </div> : 
-                pokemons.map(p => {
+
+                    // FILTRADO
+                filterTypes || filterPokemons ? 
+                filtered.map(p => {
+          
+                    return (
+                        <Link to={`/pokemons/${p.id}`} className="link" key={p.id}>
+                                <PokemonCard className="card" key={p.id}
+                                    id={p.id}
+                                    name={p.name}
+                                    img={p.img}
+                                    types={p.types}
+                                />
+                        </Link>
+                    )
+                }).slice(start, end) :
+
+                //ORDENAMIENTO
+                sortedName || sortedAttack ?
+                ordered.map(p => {
+          
+                    return (
+                        <Link to={`/pokemons/${p.id}`} className="link" key={p.id}>
+                                <PokemonCard className="card" key={p.id}
+                                    id={p.id}
+                                    name={p.name}
+                                    img={p.img}
+                                    types={p.types}
+                                />
+                        </Link>
+                    )
+                }).slice(start, end) :
+
+                searched.length ?
+                searched.map(p => {
+          
+                    return (
+                        <Link to={`/pokemons/${p.id}`} className="link" key={p.id}>
+                                <PokemonCard className="card" key={p.id}
+                                    id={p.id}
+                                    name={p.name}
+                                    img={p.img}
+                                    types={p.types}
+                                />
+                        </Link>
+                    )
+                }).slice(start, end) :
+
+                pokemons?.map(p => {
                     //console.log(p)
                     return (
                         <Link to={`/pokemons/${p.id}`} className="link" key={p.id}>
@@ -74,7 +130,7 @@ export function PokemonCards(){
                                 />
                         </Link>
                     )
-                }).slice(start, end)
+                }).slice(start, end) 
             }
             </div>
             <div className="footer">

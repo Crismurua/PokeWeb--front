@@ -40,7 +40,7 @@ const SearchBar = (props) => {
 
 function mapStateToProps (state) {
     return {
-      pokemons: state.pokemons,
+      searchedPoke: state.searchedPoke,
       
     }
   }

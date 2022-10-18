@@ -1,11 +1,14 @@
-import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, ASCENDENT, DESCENDENT, API_POKEMON, DB_POKEMON, ALL_TYPES, NEXT, PREV} from "../actions/actionTypes.js";
+import {GET_POKEMONS, GET_POKEMON_DETAIL, GET_TYPES, GET_BY_NAME, CREATE_POKEMON, LOADING, FILTER_TYPE, FILTER_POKEMON, SORT_NAME , SORT_ATTACK, ASCENDENT, DESCENDENT, DEFAULT, API_POKEMON, DB_POKEMON, ALL_TYPES, NEXT, PREV, ALL_POKEMON, RESET} from "../actions/actionTypes.js";
 
 
 const initialState = {
     pokemons: [],
+    searchedPoke: {},
     pokemonDetail: {},
     types: [],
     loading: false,
+    filteredPoke:[],
+    orderPokemons:[],
     filterTypes: false,
     filterPokemons: false,
     sortName:[false, false],
@@ -19,20 +22,26 @@ const rootReducer = (state = initialState, action) => {
 
     function pokeFilter(byType, byPokemon){
         let currState = [...state.pokemons];
-        if(byType && byType !== ALL_TYPES){
+        
+        if(byType !== ALL_TYPES){
             currState = currState.filter(p => {
+
                 const allTypes = p.types.map(t => t.name);
                 return allTypes.includes(byType);
             })
-        }else {
-            return currState
-        }
+        }        
  
         if(byPokemon === API_POKEMON){
-            currState = currState.filter(p => p.id <= 1154)
+
+            currState = currState.filter(p => !isNaN(p.id))
+
         }
         if(byPokemon === DB_POKEMON){
+            
             currState = currState.filter(p => isNaN(p.id))
+        }
+        if(byPokemon === ALL_POKEMON) {
+            currState = state.pokemons
         }
     
         return currState;
@@ -57,7 +66,7 @@ const rootReducer = (state = initialState, action) => {
             
             return {
                 ...state,
-                pokemons: [action.payload],
+                searchedPoke: [action.payload],
                 loading: false,
                 currentPage: 1,
                 
@@ -83,33 +92,39 @@ const rootReducer = (state = initialState, action) => {
             }
         case FILTER_TYPE:
             {
-                let filtered = pokeFilter(action.payload, state.filterPokemons);
+                let filtered = pokeFilter(action.payload, action.payload);
                 return {
                     ...state,
-                    pokemons: filtered,
+                    filteredPoke: filtered,
                     filterTypes: action.payload,
+                    filterPokemons: action.payload,
                     currentPage: 1
             }}
         case FILTER_POKEMON:{
-            let filtered = pokeFilter(state.filterTypes, action.payload);
+            let filtered = pokeFilter(action.payload, action.payload);
             return {
                 ...state,
-                pokemons: filtered,
+                filteredPoke: filtered,
                 filterPokemons: action.payload,
+                filterTypes: action.payload,
                 currentPage: 1
 
             }}
         case SORT_NAME:
-            {let sortedPoke = [...state.pokemons]
-            sortedPoke.sort((a,b) => {
-                if (a.name.toUpperCase() < b.name.toUpperCase()) {  return action.payload === ASCENDENT ? -1 : 1; }
-                if (a.name.toUpperCase() > b.name.toUpperCase()) {  return action.payload === DESCENDENT ? -1 : 1;}
-                return 0;
-            })
+            {let sortedPoke = action.payload[1]
+                
+                sortedPoke.sort((a,b) => {
+                    if (a.name < b.name) {  return action.payload[0] === ASCENDENT ? -1 : 1; }
+                    if (a.name > b.name) {  return action.payload[0] === DESCENDENT ? -1 : 1;}
+                    if(a.id > b.id) {return action.payload === DEFAULT ? -1 : 1; }
+                    return 0;
+                })
+                console.log(action.payload)
             return {
                 ...state,
-                pokemons: sortedPoke,
-                sortName: [action.payload === ASCENDENT, action.payload === DESCENDENT],
+                orderPokemons: sortedPoke,
+                filteredPoke: sortedPoke,
+                sortName: [action.payload === ASCENDENT, action.payload === DESCENDENT, action.payload === DEFAULT],
                 sortAttack: [false, false],
                 currentPage: 1
             }}
@@ -122,8 +137,9 @@ const rootReducer = (state = initialState, action) => {
                 });
                 return {
                     ...state,
-                    pokemons: sortedPoke,
-                    sortAttack: [action.payload === ASCENDENT, action.payload === DESCENDENT],
+                    orderPokemons: sortedPoke,
+                    filteredPoke: sortedPoke,
+                    sortAttack: [action.payload === ASCENDENT, action.payload === DESCENDENT, action.payload === DEFAULT],
                     sortName: [false, false],
                     currentPage: 1
                 }}
@@ -139,6 +155,13 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 currentPage: state.currentPage - 1,
                 loading: false
+            }
+        case RESET:
+            return {
+                ...state,
+                filteredPoke: [],
+                orderPokemons: [],
+                searchedPoke: [],
             }
         
         default:
