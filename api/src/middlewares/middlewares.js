@@ -8,13 +8,13 @@ async function pokeApi(){
     await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40")
             .then(async response => {
                 let respApi = response.data.results;
-                let apiPromise = respApi.map(p => axios.get(p.url));
+                let apiPromise = respApi?.map(p => axios.get(p.url));
                 
                 //console.log(apiPromise)
 
                 await Promise.all(apiPromise)
                 .then(poke => {
-                    arrayApi = poke.map(p => {
+                    arrayApi = poke?.map(p => {
                         return {
                             id: p.data.id,
                             name: p.data.name,
@@ -61,9 +61,9 @@ async function pokeDb(){
 
 async function getAllPoke(){
     try{
-        let api = await pokeApi();
-        let db = await pokeDb();
-        if(db && api) return api.concat(db);
+        const api = await pokeApi();
+        const db = await pokeDb();
+        if(db && api) return api?.concat(db);
         else return api; 
     }
     catch(err){console.log(err)}

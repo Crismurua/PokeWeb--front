@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
         const newPoke = await Pokemon.create({name, img, hp, attack, defense, speed, height, weight})
         //console.log(newPoke)
         await newPoke.addTypes(types)
-        //console.log(newPoke)
+        console.log(newPoke)
         return res.status(201).json({message: 'Pokemon created!'})
         
     }
