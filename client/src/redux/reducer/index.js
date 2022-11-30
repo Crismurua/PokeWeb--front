@@ -50,6 +50,7 @@ const rootReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_POKEMONS:
+            console.log(3)
             return {
                 ...state,
                 pokemons: action.payload,

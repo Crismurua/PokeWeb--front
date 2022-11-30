@@ -1,5 +1,4 @@
 import React from "react";
-import * as actions from "../../redux/actions/index.js";
 import { useSelector } from "react-redux";
 import PokemonCard from "../PokemonCard/PokemonCard.jsx"
 import {useDispatch} from "react-redux";
@@ -30,8 +29,9 @@ export function PokemonCards(){
     const pokePerPage = parseInt(useSelector(state => state.pokePerPage))
 
     React.useEffect(() => {
+        console.log(1)
         dispatch(getPokemons())
-
+        console.log(dispatch(getPokemons()))
     }, [dispatch])
 
     // PAGINADO -----------------------------------

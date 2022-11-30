@@ -12,6 +12,7 @@ export const loading = () => {
 export const getPokemons = () => {
     return async function(dispatch){
         dispatch(loading())
+        console.log(2)
         return await fetch('http://localhost:3001/pokemons')
         .then(r => r.json())
         .then(response => {
