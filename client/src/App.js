@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <Route path='/pokemons' component={Nav}/>
-      <Switch>  
       <Route exact path='/' component={Landing}/>
+      <Switch>  
       <Route exact path='/pokemons' render={() => <PokemonCards />}/>
       <Route exact path='/pokemons/:id' component={PokemonDetail}/>
       <Route exact path='/create' component={CreatePokemon}/>
