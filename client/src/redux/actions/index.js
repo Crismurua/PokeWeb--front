@@ -13,7 +13,7 @@ export const getPokemons = () => {
     return async function(dispatch){
         dispatch(loading())
         console.log(2)
-        return await fetch('http://localhost:3001/pokemons')
+        return await fetch('https://pokeweb-front-production.up.railway.app/pokemons')
         .then(r => r.json())
         .then(response => {
             dispatch({
@@ -27,7 +27,7 @@ export const getPokemons = () => {
 export const getPokemonDetail = (id) => {
     return async function(dispatch){
         dispatch(loading())
-        return await fetch(`http://localhost:3001/pokemons/${id}`)
+        return await fetch(`https://pokeweb-front-production.up.railway.app/pokemons/${id}`)
         .then(r => r.json())
         .then(response => {
             dispatch({
@@ -40,7 +40,7 @@ export const getPokemonDetail = (id) => {
 
 export const createPokemon = (payload) => {
     return async function(dispatch){
-        return await fetch('http://localhost:3001/pokemons', {
+        return await fetch('https://pokeweb-front-production.up.railway.app/pokemons', {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(payload),
@@ -58,7 +58,7 @@ export const createPokemon = (payload) => {
 
 export const getTypes = () => {
     return async function(dispatch){
-        return await fetch('http://localhost:3001/type')
+        return await fetch('https://pokeweb-front-production.up.railway.app/type')
         .then(r => r.json())
         .then(response => {
             dispatch({
@@ -74,7 +74,7 @@ export const getByName = (name) => {
     //console.log(name)
     return async function(dispatch){
         dispatch(loading())
-        return await fetch(`http://localhost:3001/pokemons/?name=${name}`)
+        return await fetch(`https://pokeweb-front-production.up.railway.app/pokemons/?name=${name}`)
         .then(r => r.json())
         .then(response => {
             dispatch({
