@@ -13,8 +13,8 @@ import ErrorPage from "./components/ErrorPage/ErrorPage.jsx";
 function App() {
   return (
     <div className="App">
-      <Route path='/pokemons' component={Nav}/>
       <Route exact path='/' component={Landing}/>
+      <Route path='/pokemons' component={Nav}/>
       <Switch>  
       <Route exact path='/pokemons' render={() => <PokemonCards />}/>
       <Route exact path='/pokemons/:id' component={PokemonDetail}/>
