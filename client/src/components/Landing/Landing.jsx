@@ -7,7 +7,7 @@ const Landing = () => {
 
     return (
         <div className="landing">
-            <button className="enter"><Link to="/pokemons" ><span className="welcome">WELCOME</span></Link></button>
+            <Link to="/pokemons" className="enter">WELCOME</Link>
             <img src="media/pokemon-logo.png" className="land-logo" alt="logo" />
             <img src="media/landing.png" className="wall" alt="pokeball" />
 

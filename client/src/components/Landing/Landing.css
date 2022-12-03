@@ -30,6 +30,8 @@
     padding: 10px;
     background: rgb(255,126,126);
     background: radial-gradient(circle, rgba(255,126,126,1) 11%, rgba(249,10,10,1) 96%);
+    color:#fff;
+    text-decoration: none;
 
     border-radius: 3%;
     border: 3px solid #fff ;
